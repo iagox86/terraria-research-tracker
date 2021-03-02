@@ -1,0 +1,652 @@
+env:
+  browser: true
+  es6: true
+  node: true
+plugins: ['node']
+extends: ['eslint:recommended']
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+  it: readonly # Used in test files
+  describe: readonly # Used in test files
+  beforeEach: readonly # Used in test files
+  afterEach: readonly # Used in test files
+parserOptions:
+  ecmaVersion: 2018
+  sourceType: module
+rules:
+
+  # Two spaces for indent
+  indent:
+    - error
+    - 2
+    - { "SwitchCase": 1 } # Indent the body of a switch
+
+  # Only unix newlines
+  linebreak-style:
+    - error
+    - unix
+
+  # Only single quotes, escape where it'd cause an escape
+  quotes:
+    - error
+    - single
+    - { "avoidEscape": true }
+
+  # Semicolons: mandatory
+  semi:
+    - error
+    - always
+
+  # No unused variables
+  no-unused-vars:
+    - error
+
+  # No trailing sapces on lines
+  no-trailing-spaces:
+    - error
+
+  # No double-blank lines, and only one blank line at the end of the file
+  no-multiple-empty-lines:
+    - error
+    - { "max": 1, "maxEOF": 0 }
+
+  # `if()` and `} else` good, `if ()` and `}else` bad
+  keyword-spacing:
+    - error
+    - { "before": true, "after": true, "overrides": { "if": { "after": false }, "for": { "after": false }, "while": { "after": false }, "catch": { "after": false }, "throw": { "after": false }, "switch": { "after": false } } }
+
+  # Always require curly braces around the body if if statements
+  curly:
+    - error
+
+
+  # This rule warns if setters are defined without getters
+  accessor-pairs:
+    - error
+
+  # No spaces around brackets: [1, 3]
+  array-bracket-spacing:
+    - error
+    - never
+
+  # Need to have spaces before and after " => "
+  arrow-spacing:
+    - error
+    - { "before": true, "after": true }
+
+  # Spaces required before a function block
+  block-spacing:
+    - error
+    - always
+
+  # Ensure that braces are on the correct line, `if(blah) {` and `} else {`
+  brace-style:
+    - error
+    - 1tbs
+    - { "allowSingleLine": false }
+
+#    "camelcase": ["error", { "properties": "never" }],
+
+#    "comma-dangle": ["error", {
+#      "arrays": "never",
+#      "objects": "never",
+#      "imports": "never",
+#      "exports": "never",
+#      "functions": "never"
+#    }],
+
+  # Always put spaces after a comma but not before
+  comma-spacing:
+    - error
+    - { "before": false, "after": true }
+
+  # Commas go on same line as the element
+  comma-style:
+    - error
+    - last
+
+  # array[blah] has no space before the [
+  computed-property-spacing:
+    - error
+    - never
+
+  # Ensure constructors always call super()
+  constructor-super:
+    - error
+
+  # Prefer the dot with the property rather than the object if they're on the same line
+  dot-location:
+    - error
+    - property
+
+  # Prefer foo.bar over foo["bar"];
+  dot-notation:
+    - error
+    - { "allowKeywords": true }
+
+  eqeqeq:
+    - error
+
+  # no spaces before function calls - `foo()` good, `foo ()` bad
+  func-call-spacing:
+    - error
+    - never
+
+  # Enforces spacing around the * of generator functions
+  generator-star-spacing:
+    - error
+    - { "before": true, "after": true }
+
+  # Ensure that the `err` or `error` parameter isn't ignored
+  handle-callback-err:
+    - error
+    - "^(err|error)$"
+
+  # Ensure object keys are "foo: 3" intead of "foo : 3". "foo:       3" is also okay
+  key-spacing:
+    - error
+    - { "beforeColon": false, "afterColon": true, "mode": "minimum" }
+
+  # Make sure class members have newlines between
+  lines-between-class-members:
+    - error
+    - always
+    - { "exceptAfterSingleLine": true }
+
+  # Require parenthesis on `new`: `new Person()` instead of `new Person`
+  new-parens:
+    - error
+
+  # Prevent using `new Array()` or `Array()`, instead of `[1, 2, 3, ...]`
+  no-array-constructor:
+    - error
+
+  # Prevent async promise bodies - they lead to subtle errors, such as ignored errors
+  no-async-promise-executor:
+    - error
+
+  # Prevent using `argument.caller`/`callee`
+  no-caller:
+    - error
+
+  # No declaring variables in case statements, it's lexigraphically weird
+  no-case-declarations:
+    - error
+
+  # Don't allow classes to be redefined by accident
+  no-class-assign:
+    - error
+
+  # Prevent using -0
+  no-compare-neg-zero:
+    - error
+
+  # Prevent ambiguous assignments, such as `if(a = 3)`
+  no-cond-assign:
+    - error
+
+  # Don't allow assigning to constants
+  no-const-assign:
+    - error
+
+  # Don't allow a constant expression as a condition - it's usually a typo
+  no-constant-condition:
+    - error
+    #- { "checkLoops": false }
+
+  # No control characters allowed in a regular expression
+  no-control-regex:
+    - error
+
+  # No debugger statements
+  no-debugger:
+    - error
+
+  # Disallow the `window.alert()` function
+  no-alert:
+    - error
+
+  # No console.* statements
+  no-console:
+    - error
+
+  # Don't allow `delete <variable>`, since that's not how delete works (it's to delete object properties)
+  no-delete-var:
+    - error
+
+  # Don't allow duplicate arguments
+  no-dupe-args:
+    - error
+
+  # Don't allow duplicate class members
+  no-dupe-class-members:
+    - error
+
+  # Don't allow duplicate keys in an object initialization
+  no-dupe-keys:
+    - error
+
+  # Don't allow duplicate case statements in a switch
+  no-duplicate-case:
+    - error
+
+  # Don't allow the same file to be imported twice
+  no-duplicate-imports:
+    - error
+
+  # Don't allow /[]/ in regex
+  no-empty-character-class:
+    - error
+
+  # Don't allow empty destructoring, like `let {} = a`
+  no-empty-pattern:
+    - error
+
+  # Don't allow eval()
+  no-eval:
+    - error
+
+  # Don't allow an exception value (like the `e` in `catch(e)`) to be changed
+  no-ex-assign:
+    - error
+
+  # Don't allow built-in primitives to be changed
+  no-extend-native:
+    - error
+
+  # Warns whenever an immediately-invoked function expression (IIFE) is using bind() and doesn't have an appropriate this value
+  no-extra-bind:
+    - error
+
+  # Prevent unnecessary boolean casting in places where it happens automatically `if(a)` good, `if(!!a)` bad
+  no-extra-boolean-cast:
+    - error
+
+  # Don't allow extra parentheses around function declarations
+  no-extra-parens:
+    - error
+    - functions
+
+  # Don't allow fallthrough in switches
+  no-fallthrough:
+    - error
+
+  # Disallows awkward decimal, such as .2, 2., etc - 0.2 and 2.0 are preferred
+  no-floating-decimal:
+    - error
+
+  # Don't allow functions to be re-defined
+  no-func-assign:
+    - error
+
+  # Don't allow assignment to window, Object, etc
+  no-global-assign:
+    - error
+
+  # Prevent implied evals, such as `setTimeout("alert('Hi!');", 100);`
+  no-implied-eval:
+    - error
+
+  # Don't allow the `function` keyword unless it's the top level
+  no-inner-declarations:
+    - error
+
+  # Don't allow invalid regexes
+  no-invalid-regexp:
+    - error
+
+  # Prevent whitespace that's not a tab or a space
+  no-irregular-whitespace:
+    - error
+
+  # Prevent use of deprecated __iterator__() function
+  no-iterator:
+    - error
+
+  # Prevent use of `break <label>`
+  no-labels:
+    - error
+    - { "allowLoop": false, "allowSwitch": false }
+
+  # Prevent curly braces with no purpose
+  no-lone-blocks:
+    - error
+
+  # Prevent mixing character classes
+  no-misleading-character-class:
+    - error
+
+  # Don't allow direct access to Object.prototype fields
+  no-prototype-builtins:
+    - error
+
+  # Prevents a catch() that simply re-throws an error
+  no-useless-catch:
+    - error
+
+  # Prevents mixing operators, such as `a && b || c`
+  no-mixed-operators:
+    - error
+#      "groups": [
+#        ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
+#        ["&&", "||"],
+#        ["in", "instanceof"]
+#      ],
+#      "allowSamePrecedence": true
+
+  # Prevent spaces and tabs together
+  no-mixed-spaces-and-tabs:
+    - error
+
+  # Prevent multi-line strings
+  no-multi-str:
+    - error
+
+  # Prevents things like `!key in object` as opposed to `!(key in object)`
+  no-unsafe-negation:
+    - error
+
+  # Require a variable to be assigned whenever an object is created
+  no-new:
+    - error
+
+  # Disallow `new Function()`, which is basically an `eval()`
+  no-new-func:
+    - error
+
+  # Prevents `new Object()` in favour of `{}`
+  no-new-object:
+    - error
+
+  # Prevents `new require('foo');`
+  no-new-require:
+    - error
+
+  # Prevents `new Symbol()`
+  no-new-symbol:
+    - error
+
+  # Prevents use of `new String()`, `new Number()`, or `new Boolean()`, since they don't do anything besides clutter code
+  no-new-wrappers:
+    - error
+
+  # Disallows calling the Math, JSON, Reflect and Atomics objects as functions
+  no-obj-calls:
+    - error
+
+  # Disallow octal literals (071)
+  no-octal:
+    - error
+
+  # Disallow octal escapes (\251)
+  no-octal-escape:
+    - error
+
+  # Prefer path.join() over concatenating strings by hand
+  no-path-concat:
+    - error
+
+  # Prevent use of __proto__
+  no-proto:
+    - error
+
+  # Prevent redeclaring a variable with `var`
+  no-redeclare:
+    - error
+    - { "builtinGlobals": true }
+
+  # Prevent multiple spaces in a regex
+  no-regex-spaces:
+    - error
+
+  # Prevent assignment in return statement
+  no-return-assign:
+    - error
+
+  # Prevent using `await` in a return statement
+  no-return-await:
+    - error
+
+  # Prevent variables from being meaninglessly assigned to themselves
+  no-self-assign:
+    - error
+    - { "props": true }
+
+  # Don't let variables be compared to themselves
+  no-self-compare:
+    - error
+
+  # Prevent comma operator in ambiguous places
+  no-sequences:
+    - error
+
+  # Don't allow shadowing variables such as `undefined`
+  no-shadow-restricted-names:
+    - error
+
+  # Prevent "blank" array entries, eg `[1, , 2]`
+  no-sparse-arrays:
+    - error
+
+  # Prevent tabs everywhere
+  no-tabs:
+    - error
+
+  # Prevent accidentally using `${foo}` in a non-backtick string
+  no-template-curly-in-string:
+    - error
+
+  # Prevent using `this` in a constructor before calling `super()`
+  no-this-before-super:
+    - error
+
+  # Only allow `throw`ing error objects
+  no-throw-literal:
+    - error
+
+  # Don't allow assigning variables to `undefined`
+  no-undef-init:
+    - error
+
+  # Don't allow using undefined variables
+  no-undef:
+    - error
+
+  # Prevent weird linewraps that look like new statements
+  no-unexpected-multiline:
+    - error
+
+  # Prevent loops where the condition doesn't appear to be modified
+  no-unmodified-loop-condition:
+    - error
+
+  # Prevent ternary operations like `a ? true : false`
+  no-unneeded-ternary:
+    - error
+    - { "defaultAssignment": false }
+
+  # Prevent unreachable code
+  no-unreachable:
+    - error
+
+  # Prevent returns, throws, breaks, etc. in finally clauses
+  no-unsafe-finally:
+    - error
+
+  # Prevent useless statements
+  no-unused-expressions:
+    - error
+   #- { "allowShortCircuit": true, "allowTernary": true, "allowTaggedTemplates": true }
+
+  # Prevent use above define
+  no-use-before-define:
+    - error
+
+  # Prevent .apply or .call with a null argument
+  no-useless-call:
+    - error
+
+  # Prevent meaningless syntax in object keys (such as an array)
+  no-useless-computed-key:
+    - error
+
+  # Prevent empty / pointless constructors
+  no-useless-constructor:
+    - error
+
+  # Prevent pointless escapes, like `"hiy\a"`
+  no-useless-escape:
+    - error
+
+  # Prevent renaming variables to themselves, like `import { a as a } from ...`
+  no-useless-rename:
+    - error
+
+  # Prevent redundant return statements
+  no-useless-return:
+    - error
+
+  # Prevent use of `void` keyword
+  no-void:
+    - error
+
+  # Prevent `foo .bar()` or `foo. bar()`
+  no-whitespace-before-property:
+    - error
+
+  # Prevent `with` keyword
+  no-with:
+    - error
+
+  # Enforce consistent newline standards in object initialization
+  object-curly-newline:
+    - error
+    - { "multiline": true, "consistent": true }
+
+  # Require spaces around the `{` and `}` in object initializers
+  object-curly-spacing:
+    - error
+    - always
+
+  # Require object initializations to have newlines between properties
+  object-property-newline:
+    - error
+
+  # Require non-empty variable definitions to be on their own lines
+  one-var:
+    - error
+    - { "initialized": "never" }
+
+  # Requires linebreak after operator instead of before
+  operator-linebreak:
+    - error
+    - after
+
+  # Disallow whitespace at start or finish of a block
+  padded-blocks:
+    - error
+    - { "blocks": "never", "switches": "never", "classes": "never" }
+
+  # Prefer `const` for variables that aren't reassigned
+  prefer-const:
+    - error
+    - { "destructuring": "all" }
+
+  # Ensure that promises are only rejected with an Error object
+  prefer-promise-reject-errors:
+    - error
+
+  # Ensure that object properties are only quoted if it's necessary
+  quote-props:
+    - error
+    - as-needed
+
+  # Ensure there are no spaces in `...a` (bad: `... a`)
+  rest-spread-spacing:
+    - error
+    - never
+
+  # Ensure no space before a semicolon, but space after:
+  semi-spacing:
+    - error
+    - { "before": false, "after": true }
+
+  # Require whitespace before blocks
+  space-before-blocks:
+    - error
+    - always
+
+  # Don't allow space between `function` and `()`
+  space-before-function-paren:
+    - error
+    - never
+
+  # Don't allow space after `(` or before `)`
+  space-in-parens:
+    - error
+    - never
+
+  # More consistent spacing around operators
+  space-infix-ops:
+    - error
+
+  # More consistent spacing around unary operators
+  space-unary-ops:
+    - error
+    - { "words": true, "nonwords": false }
+
+  # Consistent spacing around comments
+  spaced-comment:
+    - error
+    - always
+    - { "line": { "markers": ["*package", "!", "/", ",", "="] }, "block": { "balanced": true, "markers": ["*package", "!", ",", ":", "::", "flow-include"], "exceptions": ["*"] } }
+
+  # Requires a description when creating a `Symbol`
+  symbol-description:
+    - error
+
+  # Require spaces inside backtick-templates
+  template-curly-spacing:
+    - error
+    - always
+
+  # Don't allow the unicode byte-order marker at the top of files
+  unicode-bom:
+    - error
+    - never
+
+  # Require use of `isNaN()` instead of `== NaN`
+  use-isnan:
+    - error
+
+  # Ensure that `typeof` only compares to correct strings (or other typeof values)
+  valid-typeof:
+    - error
+    - { "requireStringLiterals": true }
+
+  # Requires iife functions to be wrapped in parenthesis
+  wrap-iife:
+    - error
+    - any
+    - { "functionPrototypeMethods": true  }
+
+
+  # Ensure there is always a space before '*' but not after (eg: `function *foo()`)
+  yield-star-spacing:
+    - error
+    - before
+
+  # Disallow `if("red" == colour)`-style conditions
+  yoda:
+    - error
+    - never
+
+  # Disallow deprecated API usage
+  "node/no-deprecated-api":
+    - error
+
+  # Catch instances of XXX, which I use for stuff I _need_ to deal with ASAP
+  no-warning-comments:
+    - error
+    - { terms: ["XXX"] }
