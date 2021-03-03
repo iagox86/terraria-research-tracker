@@ -1,8 +1,11 @@
-import { welcome } from '../src/index.js';
+import assert from 'assert';
 
-const assert = require('assert');
+import { go } from '../src/index.js';
+
 describe('Simple Test', () => {
-  it('Should welcome', () => {
-    assert.equal('Welcome!', welcome());
+  it('Has things that work', () => {
+    console.log();
+    go();
+    console.log();
   });
 });

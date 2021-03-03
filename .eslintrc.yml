@@ -209,7 +209,8 @@ rules:
 
   # No console.* statements
   no-console:
-    - error
+    - off
+  #   - error
 
   # Don't allow `delete <variable>`, since that's not how delete works (it's to delete object properties)
   no-delete-var:
