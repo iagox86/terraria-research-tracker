@@ -1,11 +1,11 @@
 import assert from 'assert';
+import fs from 'fs';
 
-import { go } from '../src/index.js';
+import { researched, not_researched, researched_ids, not_researched_ids, get_research_data } from '../src/index.js';
 
 describe('Simple Test', () => {
   it('Has things that work', () => {
-    console.log();
-    go();
-    console.log();
+    console.log(not_researched(fs.readFileSync('/home/ron/tmp/terraria/Almech3.plr')));
+    //console.log(not_researched_ids(fs.readFileSync('/home/ron/tmp/terraria/TestChar.plr')));
   });
 });

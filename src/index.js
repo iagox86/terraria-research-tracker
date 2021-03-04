@@ -1,11 +1,16 @@
 import fs from 'fs';
 import crypto from 'crypto';
+import _ from 'lodash';
+
+import { items } from './items';
 
 const ALGORITHM = 'aes-128-cbc';
 const KEY = 'h\x003\x00y\x00_\x00g\x00U\x00y\x00Z\x00';
 const IV = KEY;
 
-const NAME_OFFSET = 24;
+const NAME_OFFSET = 0x18;
+const SPAWN_POINT_OFFSET = 0x99c;
+const JOURNEY_OFFSET = 0x6b;
 
 const GAME_MODES = [
   'Classic',
@@ -13,6 +18,8 @@ const GAME_MODES = [
   'Hard Core',
   'Journey',
 ];
+
+const SUPPORTED_VERSIONS = [234];
 
 const decrypt = (data) => {
   const decipher = crypto.createDecipheriv(ALGORITHM, KEY, IV);
@@ -25,31 +32,33 @@ const read_lpstring = (buffer, offset) => {
   return [buffer.toString('utf8', offset + 1, end), end];
 };
 
-export const go2 = (filename) => {
-  const encrypted = fs.readFileSync(filename);
-
-  const data = decrypt(encrypted);
+export const get_research_data = (file_data) => {
+  const data = decrypt(file_data);
 
   const version = data.readInt16LE();
-  if(version !== 234) {
-    console.error('This library only supports 1.4.1.2 (and others with the same format)');
+  if(!SUPPORTED_VERSIONS.includes(version)) {
+    console.error('This library only supports 3.4.1.2 (and others with the same format)');
+    return;
   }
 
   let pos = NAME_OFFSET;
   let name;
   [name, pos] = read_lpstring(data, pos);
 
-  console.log(`Name: ${ name }`);
   const mode = GAME_MODES[data.readUInt8(pos)] || 'Unknown!';
-  console.log(`Mode: ${ mode }`);
+
+  if(mode !== 'Journey') {
+    console.error('Not a Journey Mode character');
+    return;
+  }
 
   // Skip over everything up to the spawn points, all of which is
   // thankfully static
-  pos += 0x99c;
+  pos += SPAWN_POINT_OFFSET;
 
   // Read spawnpoint data until we get to -1, which is the terminator
   while(data.readInt32LE(pos) !== -1) {
-    // Skip X + Y + Seed
+    // Skip X + Y + Seed (each are 32 bits)
     pos += 12;
 
     // Read the world name
@@ -57,8 +66,10 @@ export const go2 = (filename) => {
   }
 
   // Skip over the next part - not sure what this data is
-  pos += 0x6b;
+  pos += JOURNEY_OFFSET;
 
+  // Clone the items object
+  const results = { ...items };
   for(;;) {
     let item;
     [item, pos] = read_lpstring(data, pos);
@@ -69,19 +80,53 @@ export const go2 = (filename) => {
     const quantity = data.readInt32LE(pos);
     pos += 4;
 
-    console.log(`${ name } has researched ${ quantity } ${ item }(s)`);
+    // console.log(`${ name } has researched ${ quantity } ${ item }(s)`);
+
+    if(!results[item]) {
+      console.warn(`Uh oh! Missing item: ${ item }`);
+      continue;
+    }
+
+    results[item].has = quantity;
+    results[item].researched = items[item].needed <= quantity;
   }
 
-  console.log('Done?');
-  // console.log(data.slice(pos));
-  // let test = data.readUInt32LE(pos);
-  // console.log(test);
+  return results;
+};
 
-  // console.log(data.slice(test));
+export const researched = (file_data) => {
+  return _.chain(get_research_data(file_data))
+    // Get only researched things
+    .pickBy((value) => {
+      return value.researched;
+    })
+
+    // Only item names
+    .keys()
+    .value();
+};
+
+export const not_researched = (file_data) => {
+  return _.chain(get_research_data(file_data))
+    // Get only researched things
+    .pickBy((value) => {
+      return !value.researched;
+    })
+
+    // Only item names
+    .keys()
+    .value();
+};
+
+export const researched_ids = (file_data) => {
+  const data = researched(file_data);
+  return _.map(data, (d) => items[d].id);
+};
+
+export const not_researched_ids = (file_data) => {
+  const data = not_researched(file_data);
+  return _.map(data, (d) => items[d].id);
 };
 
 export const go = () => {
-  //go2('/home/ron/tmp/terraria/Almech.plr');
-  //go2('/home/ron/tmp/terraria/Almech2.plr');
-  //go2('/home/ron/tmp/terraria/TestChar.plr');
-}
+};

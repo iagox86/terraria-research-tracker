@@ -1,7 +1,7 @@
 {
-  "name": "terraria-savefiles",
+  "name": "terraria-research-tracker",
   "version": "0.0.1",
-  "description": "Extract information from Terraria savefiles",
+  "description": "Parses Terraria \"Journey Mode\" data to determine what has been researched",
   "main": "index.js",
   "scripts": {
     "test": "mocha --require esm",
@@ -25,5 +25,6 @@
     "mocha": "^8.3.0"
   },
   "dependencies": {
+    "lodash": "^4.17.21"
   }
 }
