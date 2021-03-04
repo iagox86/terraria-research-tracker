@@ -127,6 +127,3 @@ export const not_researched_ids = (file_data) => {
   const data = not_researched(file_data);
   return _.map(data, (d) => items[d].id);
 };
-
-export const go = () => {
-};
