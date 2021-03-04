@@ -1,8 +1,9 @@
-import fs from 'fs';
-import crypto from 'crypto';
+// Importing like this seems required for webpack?
+const crypto = require('crypto');
+
 import _ from 'lodash';
 
-import { items } from './items';
+import { items } from './items.js';
 
 const ALGORITHM = 'aes-128-cbc';
 const KEY = 'h\x003\x00y\x00_\x00g\x00U\x00y\x00Z\x00';
@@ -42,8 +43,7 @@ export const get_research_data = (file_data) => {
   }
 
   let pos = NAME_OFFSET;
-  let name;
-  [name, pos] = read_lpstring(data, pos);
+  [, pos] = read_lpstring(data, pos);
 
   const mode = GAME_MODES[data.readUInt8(pos)] || 'Unknown!';
 
