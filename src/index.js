@@ -1,6 +1,4 @@
-// Importing like this seems required for webpack?
-const crypto = require('crypto');
-
+import crypto from 'crypto';
 import _ from 'lodash';
 
 import { items } from './items.js';
