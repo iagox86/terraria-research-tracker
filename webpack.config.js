@@ -1,9 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
-  mode: 'development',
+  mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'terraria-research-tracker.js',
@@ -24,4 +25,16 @@ module.exports = {
       Buffer: ['buffer', 'Buffer'],
     }),
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          // Of all weird things, this fixes a bug where an object has weird
+          // broken UTF-8 keys, which makes Chrome and everything else balk
+          safari10: true,
+        },
+      }),
+    ],
+  }
 };
