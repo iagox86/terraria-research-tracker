@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/iagox86/terraria-savefiles#readme",
   "devDependencies": {
+    "chai": "^4.3.3",
     "eslint-plugin-node": "^11.1.0",
     "esm": "^3.2.25",
     "mocha": "^8.3.0",

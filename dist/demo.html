@@ -1,0 +1,73 @@
+<script src='bundle.js'></script>
+
+<script>
+  data = '';
+
+  function render(e) {
+    var options = e || document.getElementsByName('call');
+    var out = '';
+    for(var i = 0; i < options.length; i++) {
+      if(options[i].checked) {
+        switch(options[i].id) {
+          case 'researched':
+            out = terrariaResearchTracker.researched(data);
+            break;
+
+          case 'not_researched':
+            out = terrariaResearchTracker.not_researched(data);
+            break;
+
+          case 'researched_ids':
+            out = terrariaResearchTracker.researched_ids(data);
+            break;
+
+          case 'not_researched_ids':
+            out = terrariaResearchTracker.not_researched_ids(data);
+            break;
+
+          default:
+            out = terrariaResearchTracker.get_research_data(data);
+        }
+      }
+    }
+
+    document.getElementById('out').innerText = JSON.stringify(out, null, 2);
+  }
+
+  function onLoad() {
+    var reader = new FileReader();
+
+    reader.addEventListener("load", function () {
+      data = reader.result;
+      render();
+    });
+
+    document.getElementById('player').addEventListener("change", function () {
+      if(reader.readyState === FileReader.LOADING) {
+        reader.abort();
+      }
+
+      reader.readAsBinaryString(document.getElementById('player').files[0]);
+    });
+  }
+
+  window.addEventListener('load', onLoad);
+</script>
+
+<form>
+  <p>
+    <label for="player">Terraria player (.plr) file:</label>
+    <input id="player" name="player" type="file">
+  </p>
+
+  <p>What to call?</p>
+  <p><input type='radio' id='get_research_data' name='call' onClick='render()' checked /> <label for="get_research_data">get_research_data()</label></p>
+  <p><input type='radio' id='researched' name='call' onClick='render()' /> <label for="researched">researched()</label></p>
+  <p><input type='radio' id='not_researched' name='call' onClick='render()' /> <label for="not_researched">not_researched()</label></p>
+  <p><input type='radio' id='researched_ids' name='call' onClick='render()' /> <label for="researched_ids">researched_ids()</label></p>
+  <p><input type='radio' id='not_researched_ids' name='call' onClick='render()' /> <label for="not_researched_ids">not_researched_ids()</label></p>
+  </p>
+</form>
+
+<pre id="out">
+</pre>

@@ -21,13 +21,17 @@ const GAME_MODES = [
 const SUPPORTED_VERSIONS = [234];
 
 const decrypt = (data) => {
+  // Convert strings to buffers (works handily for web stuff)
   if(typeof data === 'string') {
     data = Buffer.from(data, 'ascii');
   }
-  console.log('type', typeof data);
-  console.log(`Decrypting ${ data.length } bytes...`);
+
   const decipher = crypto.createDecipheriv(ALGORITHM, KEY, IV);
-  return Buffer.concat([decipher.update(data), decipher.final()]);
+  try {
+    return Buffer.concat([decipher.update(data), decipher.final()]);
+  } catch(e) {
+    throw new Error(`Invalid character data: ${ e }`);
+  }
 };
 
 const read_lpstring = (buffer, offset) => {
@@ -41,8 +45,7 @@ export const get_research_data = (file_data) => {
 
   const version = data.readInt16LE();
   if(!SUPPORTED_VERSIONS.includes(version)) {
-    console.error('This library only supports 3.4.1.2 (and others with the same format)');
-    return;
+    throw new Error('This library only supports 4.1.2 (and others with the same format)');
   }
 
   let pos = NAME_OFFSET;
@@ -51,8 +54,7 @@ export const get_research_data = (file_data) => {
   const mode = GAME_MODES[data.readUInt8(pos)] || 'Unknown!';
 
   if(mode !== 'Journey') {
-    console.error('Not a Journey Mode character');
-    return;
+    throw new Error(`This only supports Journey Mode characters, not ${ mode }`);
   }
 
   // Skip over everything up to the spawn points, all of which is
@@ -82,8 +84,6 @@ export const get_research_data = (file_data) => {
 
     const quantity = data.readInt32LE(pos);
     pos += 4;
-
-    // console.log(`${ name } has researched ${ quantity } ${ item }(s)`);
 
     if(!results[item]) {
       console.warn(`Uh oh! Missing item: ${ item }`);
