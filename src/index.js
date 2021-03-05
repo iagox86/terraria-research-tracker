@@ -21,6 +21,11 @@ const GAME_MODES = [
 const SUPPORTED_VERSIONS = [234];
 
 const decrypt = (data) => {
+  if(typeof data === 'string') {
+    data = Buffer.from(data, 'ascii');
+  }
+  console.log('type', typeof data);
+  console.log(`Decrypting ${ data.length } bytes...`);
   const decipher = crypto.createDecipheriv(ALGORITHM, KEY, IV);
   return Buffer.concat([decipher.update(data), decipher.final()]);
 };
