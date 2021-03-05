@@ -41,3 +41,19 @@ a list of id values.
 The `data` field is a `string` (or `Buffer`) representing a .plr file from
 Terraria. The [demo.html](/dist/demo.html) file shows how that can be handled
 purely in-browser.
+
+## Build
+
+To build:
+
+```
+npm i
+npm run-script build
+```
+
+To run unit tests:
+
+```
+npm i
+npm test
+```

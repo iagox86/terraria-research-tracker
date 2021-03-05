@@ -1,6 +1,6 @@
 {
   "name": "terraria-research-tracker",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Parses Terraria \"Journey Mode\" data to determine what has been researched",
   "main": "index.js",
   "type": "module",

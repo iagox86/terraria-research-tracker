@@ -42,6 +42,15 @@ describe('Simple Test', () => {
     assert.includeMembers(data_not_researched_ids, [2, 3, 4, 5, 100]);
   });
 
+  it('Handles files with many spawnpoints', function() {
+    const data = get_research_data(fs.readFileSync(`${ TEST_PATH }/ManySpawnPoints.plr`));
+
+    assert.equal(2, data.DirtBlock.id);
+    assert.equal(100, data.DirtBlock.needed);
+    assert.equal(100, data.DirtBlock.has);
+    assert.equal(true, data.DirtBlock.researched);
+  });
+
   it('Handles invalid character files', function() {
     assert.throws(() => {
       get_research_data(fs.readFileSync(`${ TEST_PATH }/InvalidChar.plr`));
