@@ -11,21 +11,16 @@ https://terraria.skullsecurity.org
 
 ## Usage
 
-This compiles to just a simple JavaScript file that can be imported by any
-web site. The [compiled file](dist/terraria-research-tracker.js) is available
-in the repo.
+### API
 
-Once it's imported, you can access the functions via the
-`terrariaResearchTracker` global, passing in a save file's raw data:
+This library exports a handful of functions:
 
 ```js
-<script>
-  console.log(terrariaResearchTracker.get_research_data(save_file));
-  console.log(terrariaResearchTracker.researched(save_file));
-  console.log(terrariaResearchTracker.not_researched(save_file));
-  console.log(terrariaResearchTracker.researched_ids(save_file));
-  console.log(terrariaResearchTracker.not_researched_ids(save_file));
-</script>
+terrariaResearchTracker.get_research_data(save_file);
+terrariaResearchTracker.researched(save_file);
+terrariaResearchTracker.not_researched(save_file);
+terrariaResearchTracker.researched_ids(save_file);
+terrariaResearchTracker.not_researched_ids(save_file);
 ```
 
 `get_research_data()` returns a big table of every item, including the number
@@ -39,21 +34,101 @@ have not been researched, respectively.
 a list of id values.
 
 The `data` field is a `string` (or `Buffer`) representing a .plr file from
-Terraria. The [demo.html](/dist/demo.html) file shows how that can be handled
-purely in-browser.
+Terraria.
 
-## Build
+### npm (build)
 
-To build:
+To build for npm, use `npm run-script build`:
+
+```sh
+$ npm run-script build
+
+> terraria-research-tracker@1.0.2 build /home/ron/projects/terraria-research-tracker
+> babel ./src --out-dir ./dist --source-maps --copy-files
+
+Successfully compiled 2 files with Babel (1389ms).
+```
+
+### npm (import)
+
+To install this library via npm, simply use `npm install`:
 
 ```
-npm i
-npm run-script build
+$ npm install --save terraria-research-tracker
+
++ terraria-research-tracker@1.0.2
+added 51 packages from 19 contributors and audited 51 packages in 2.532s
+
+4 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
 ```
 
-To run unit tests:
+Then you can import it and execute functions:
 
+```js
+$ cat index.js
+const r = require('terraria-research-tracker');
+
+console.log(r);
+r.researched(...filedata...);
 ```
-npm i
-npm test
+
+See above for the API!
+
+### Browser (build)
+
+This can be compiled to a simple browser file that can be imported from the web.
+The [compiled file](browser/terraria-research-tracker.js) is available
+in the repo, or you can build it yourself:
+
+```sh
+$ npm run-script build-browser
+
+> terraria-research-tracker@1.0.2 build-browser /home/ron/projects/terraria-research-tracker
+> webpack
+
+[...]
+
+webpack 5.24.3 compiled with 3 warnings in 6920 ms
+```
+
+### Browser (import)
+
+You can import the built browser file using `<script src=...>`, as demonstrated
+in [browser/demo.html](/browser/demo.html):
+
+```html
+<script src='terraria-research-tracker.js'></script>
+
+<script>
+  console.log(terrariaResearchTracker);
+  console.log(terrariaResearchTracker.researched(...playerdata...));
+</script>
+```
+
+### Test
+
+You can also run my unit tests:
+
+```sh
+$ npm test
+
+> terraria-research-tracker@1.0.2 test /home/ron/projects/terraria-research-tracker
+> mocha --require esm
+
+
+
+  Simple Test
+    ✓ Get research data works
+    ✓ Helper functions work (39ms)
+    ✓ Handles files with many spawnpoints
+    ✓ Handles invalid character files
+    ✓ Handles missing character files
+    ✓ Handles bad version character files
+    ✓ Handles non-journey mode character
+
+
+  7 passing (61ms)
 ```

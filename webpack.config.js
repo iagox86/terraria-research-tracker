@@ -6,7 +6,7 @@ module.exports = {
   entry: './src/index.js',
   mode: 'production',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'browser'),
     filename: 'terraria-research-tracker.js',
     library: 'terrariaResearchTracker',
   },

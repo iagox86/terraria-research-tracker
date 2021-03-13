@@ -1,11 +1,15 @@
 {
   "name": "terraria-research-tracker",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Parses Terraria \"Journey Mode\" data to determine what has been researched",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist/*"
+  ],
   "type": "module",
   "scripts": {
-    "build": "webpack",
+    "build": "babel ./src --out-dir ./dist --source-maps --copy-files",
+    "build-browser": "webpack",
     "test": "mocha --require esm"
   },
   "repository": {
@@ -19,6 +23,10 @@
   },
   "homepage": "https://github.com/iagox86/terraria-savefiles#readme",
   "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-transform-destructuring": "^7.13.0",
+    "@babel/preset-env": "^7.13.10",
     "chai": "^4.3.3",
     "eslint-plugin-node": "^11.1.0",
     "esm": "^3.2.25",
