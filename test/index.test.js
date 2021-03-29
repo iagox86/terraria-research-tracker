@@ -74,4 +74,22 @@ describe('Simple Test', () => {
       get_research_data(fs.readFileSync(`${ TEST_PATH }/NotJourneyMode.plr`));
     }, /only supports journey/i);
   });
+
+  it('Handles 1.4.2 correctly', function() {
+    const data_researched = researched(fs.readFileSync(`${ TEST_PATH }/TestChar-1.4.2.plr`));
+    assert.sameMembers(['IronPickaxe'], data_researched);
+  });
+
+  // This tests for a bug where I didn't clone the array correctly and stale data
+  // would stick around
+  it("Doesn't keep stale research data", function() {
+    // Parse a file with several things researched
+    researched(fs.readFileSync(`${ TEST_PATH }/TestChar.plr`));
+
+    // Parse a file with just one thing researched
+    const data_researched = researched(fs.readFileSync(`${ TEST_PATH }/TestChar-1.4.2.plr`));
+
+    // Make sure the old research data didn't carry over
+    assert.sameMembers(['IronPickaxe'], data_researched);
+  });
 });

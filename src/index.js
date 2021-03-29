@@ -18,7 +18,7 @@ const GAME_MODES = [
   'Journey',
 ];
 
-const SUPPORTED_VERSIONS = [234];
+const SUPPORTED_VERSIONS = [234, 235];
 
 const decrypt = (data) => {
   // Convert strings to buffers (works handily for web stuff)
@@ -45,7 +45,7 @@ export const get_research_data = (file_data) => {
 
   const version = data.readInt16LE();
   if(!SUPPORTED_VERSIONS.includes(version)) {
-    throw new Error('This library only supports 4.1.2 (and others with the same format)');
+    throw new Error(`This library only supports 4.1.2 (and others with the same format) (version id = ${ version }`);
   }
 
   let pos = NAME_OFFSET;
@@ -74,7 +74,7 @@ export const get_research_data = (file_data) => {
   pos += JOURNEY_OFFSET;
 
   // Clone the items object
-  const results = { ...items };
+  const results = _.cloneDeep(items);
   for(;;) {
     let item;
     [item, pos] = read_lpstring(data, pos);
