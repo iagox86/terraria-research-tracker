@@ -75,11 +75,6 @@ describe('Simple Test', () => {
     }, /only supports journey/i);
   });
 
-  it('Handles 1.4.2 correctly', function() {
-    const data_researched = researched(fs.readFileSync(`${ TEST_PATH }/TestChar-1.4.2.plr`));
-    assert.sameMembers(['IronPickaxe'], data_researched);
-  });
-
   // This tests for a bug where I didn't clone the array correctly and stale data
   // would stick around
   it("Doesn't keep stale research data", function() {
@@ -90,6 +85,16 @@ describe('Simple Test', () => {
     const data_researched = researched(fs.readFileSync(`${ TEST_PATH }/TestChar-1.4.2.plr`));
 
     // Make sure the old research data didn't carry over
+    assert.sameMembers(['IronPickaxe'], data_researched);
+  });
+
+  it('Handles 1.4.2 correctly', function() {
+    const data_researched = researched(fs.readFileSync(`${ TEST_PATH }/TestChar-1.4.2.plr`));
+    assert.sameMembers(['IronPickaxe'], data_researched);
+  });
+
+  it('Handles 1.4.2.1 correctly', function() {
+    const data_researched = researched(fs.readFileSync(`${ TEST_PATH }/TestChar-1.4.2.1.plr`));
     assert.sameMembers(['IronPickaxe'], data_researched);
   });
 });
