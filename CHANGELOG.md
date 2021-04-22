@@ -1,3 +1,6 @@
+Version 1.0.4 - April 21, 2021
+* Add support for v1.4.2.2
+
 Version 1.0.4 - March 21, 2021
 * Add support for v1.4.2.1
 
