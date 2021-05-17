@@ -132,3 +132,13 @@ $ npm test
 
   7 passing (61ms)
 ```
+
+# Creating a release
+
+My checklist, because I keep missing steps:
+
+* Update the changelog
+* Update the version number in package.json
+* Publish on npm (`npm publish`)
+* Build the browser version (`npm run-script build-browser`)
+* Commit + push to git
