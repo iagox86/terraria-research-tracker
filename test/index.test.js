@@ -107,4 +107,9 @@ describe('Simple Test', () => {
     const data_researched = researched(fs.readFileSync(`${ TEST_PATH }/TestChar-1.4.2.3.plr`));
     assert.sameMembers(['IronPickaxe'], data_researched);
   });
+
+  it('Handles 1.4.3 correctly', function() {
+    const data_researched = researched(fs.readFileSync(`${ TEST_PATH }/TestChar-1.4.3.plr`));
+    assert.sameMembers(['IronPickaxe'], data_researched);
+  });
 });
