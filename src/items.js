@@ -20123,4 +20123,152 @@ export const items = {
     needed: 1,
     id: 5087
   },
+  BerniePetItem: {
+    needed: 1,
+    id: 5088
+  },
+  GlommerPetItem: {
+    needed: 1,
+    id: 5089
+  },
+  DeerclopsPetItem: {
+    needed: 1,
+    id: 5090
+  },
+  PigPetItem: {
+    needed: 1,
+    id: 5091
+  },
+  MonsterLasagna: {
+    needed: 10,
+    id: 5092
+  },
+  FroggleBunwich: {
+    needed: 10,
+    id: 5093
+  },
+  TentacleSpike: {
+    needed: 1,
+    id: 5094
+  },
+  LucyTheAxe: {
+    needed: 1,
+    id: 5095
+  },
+  HamBat: {
+    needed: 1,
+    id: 5096
+  },
+  BatBat: {
+    needed: 1,
+    id: 5097
+  },
+  ChesterPetItem: {
+    needed: 1,
+    id: 5098
+  },
+  GarlandHat: {
+    needed: 1,
+    id: 5099
+  },
+  BoneHelm: {
+    needed: 1,
+    id: 5100
+  },
+  Eyebrella: {
+    needed: 1,
+    id: 5101
+  },
+  WilsonShirt: {
+    needed: 1,
+    id: 5102
+  },
+  WilsonPants: {
+    needed: 1,
+    id: 5103
+  },
+  WilsonBeardShort: {
+    needed: 1,
+    id: 5104
+  },
+  WilsonBeardLong: {
+    needed: 1,
+    id: 5105
+  },
+  WilsonBeardMagnificent: {
+    needed: 1,
+    id: 5106
+  },
+  Magiluminescence: {
+    needed: 1,
+    id: 5107
+  },
+  DeerclopsTrophy: {
+    needed: 1,
+    id: 5108
+  },
+  DeerclopsMask: {
+    needed: 1,
+    id: 5109
+  },
+  DeerclopsMasterTrophy: {
+    needed: 1,
+    id: 5110
+  },
+  DeerclopsBossBag: {
+    needed: 3,
+    id: 5111
+  },
+  MusicBoxDeerclops: {
+    needed: 1,
+    id: 5112
+  },
+  DontStarveShaderItem: {
+    needed: 1,
+    id: 5113
+  },
+  AbigailsFlower: {
+    needed: 1,
+    id: 5114
+  },
+  WillowShirt: {
+    needed: 1,
+    id: 5115
+  },
+  WillowSkirt: {
+    needed: 1,
+    id: 5116
+  },
+  PewMaticHorn: {
+    needed: 1,
+    id: 5117
+  },
+  WeatherPain: {
+    needed: 1,
+    id: 5118
+  },
+  HoundiusShootius: {
+    needed: 1,
+    id: 5119
+  },
+  DeerThing: {
+    needed: 3,
+    id: 5120
+  },
+  PaintingWilson: {
+    needed: 1,
+    id: 5121
+  },
+  PaintingWillow: {
+    needed: 1,
+    id: 5122
+  },
+  PaintingWendy: {
+    needed: 1,
+    id: 5123
+  },
+  PaintingWolfgang: {
+    needed: 1,
+    id: 5124
+  },
 };
