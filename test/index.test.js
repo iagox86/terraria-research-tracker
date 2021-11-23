@@ -4,7 +4,8 @@ import fs from 'fs';
 
 import { get_research_data, researched, not_researched, researched_ids, not_researched_ids } from '../src/index.js';
 
-const TEST_PATH = path.resolve(__dirname, 'testdata');
+const __dirname = path.resolve();
+const TEST_PATH = path.resolve(__dirname, 'test/testdata');
 
 describe('Simple Test', () => {
   it('Get research data works', function() {
