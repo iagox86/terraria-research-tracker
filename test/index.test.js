@@ -4,7 +4,8 @@ import fs from 'fs';
 
 import { get_research_data, researched, not_researched, researched_ids, not_researched_ids } from '../src/index.js';
 
-const TEST_PATH = path.resolve(__dirname, 'testdata');
+const __dirname = path.resolve();
+const TEST_PATH = path.resolve(__dirname, 'test/testdata');
 
 describe('Simple Test', () => {
   it('Get research data works', function() {
@@ -110,6 +111,11 @@ describe('Simple Test', () => {
 
   it('Handles 1.4.3 correctly', function() {
     const data_researched = researched(fs.readFileSync(`${ TEST_PATH }/TestChar-1.4.3.plr`));
+    assert.sameMembers(['IronPickaxe'], data_researched);
+  });
+
+  it('Handles 1.4.3.1 correctly', function() {
+    const data_researched = researched(fs.readFileSync(`${ TEST_PATH }/TestChar-1.4.3.1.plr`));
     assert.sameMembers(['IronPickaxe'], data_researched);
   });
 });

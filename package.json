@@ -1,6 +1,6 @@
 {
   "name": "terraria-research-tracker",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Parses Terraria \"Journey Mode\" data to determine what has been researched",
   "main": "dist/index.js",
   "files": [
@@ -30,7 +30,7 @@
     "chai": "^4.3.3",
     "eslint-plugin-node": "^11.1.0",
     "esm": "^3.2.25",
-    "mocha": "^8.3.0",
+    "mocha": "^9.1.3",
     "terser-webpack-plugin": "^5.1.1",
     "webpack": "^5.24.3",
     "webpack-cli": "^4.5.0"
