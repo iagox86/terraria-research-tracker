@@ -18,7 +18,7 @@ const GAME_MODES = [
   'Journey',
 ];
 
-const SUPPORTED_VERSIONS = [234, 235, 236, 237, 238, 242, 243];
+const SUPPORTED_VERSIONS = [234, 235, 236, 237, 238, 242, 243, 244];
 
 const decrypt = (data) => {
   // Convert strings to buffers (works handily for web stuff)
